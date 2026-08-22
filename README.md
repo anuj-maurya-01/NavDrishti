@@ -5,6 +5,8 @@ GESCOM is a complete, end-to-end, working AI/ML application for the Smart India 
 
 GESCOM tracks facial gestures (eyebrows, eyes, iris, mouth, head pose) along with skeletal pose and hand gestures using MediaPipe Holistic, aligning them over time to translate continuous Indian Sign Language (ISL) video/webcam streams into readable text sentences and spoken audio.
 
+See the complete [model and implementation report](docs/model_report.md) for the feature breakdown, model comparison, verified metrics, and beginner setup steps.
+
 ---
 
 ## 1. Project Directory Structure
