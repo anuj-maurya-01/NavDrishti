@@ -1,0 +1,5 @@
+{
+    "input_dim": 534,
+    "sequence_length": 30,
+    "model_type": "temporal"
+}

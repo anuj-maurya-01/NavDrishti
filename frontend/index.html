@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff">
+    <title>GESCOM: ISL Non-Manual Feature AI Translator</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="app-header">
+        <div class="logo">
+            <i class="fa-solid fa-eye eye-icon"></i>
+            <h1>GESCOM <span class="badge">SIH Prototype</span></h1>
+        </div>
+        <div class="header-controls">
+            <button id="sih-demo-btn" class="btn btn-secondary active">
+                <i class="fa-solid fa-graduation-cap"></i> SIH Demo Mode
+            </button>
+            <div id="connection-status" class="status-badge connected">
+                <span class="dot"></span> Backend Active
+            </div>
+        </div>
+    </header>
+
+    <main class="dashboard-grid">
+        <!-- Column 1: Live Webcam Feed -->
+        <section class="card camera-card">
+            <div class="card-header">
+                <h2><i class="fa-solid fa-video"></i> Live Input Feed</h2>
+                <div class="fps-counter" id="fps-display">0 FPS</div>
+            </div>
+            <div class="video-container">
+                <video id="webcam" autoplay playsinline muted></video>
+                <canvas id="overlay-canvas"></canvas>
+                <div class="video-placeholder" id="placeholder">
+                    <i class="fa-solid fa-camera-retro"></i>
+                    <p>Webcam Stream Stopped</p>
+                </div>
+            </div>
+            <div class="camera-controls">
+                <button id="start-btn" class="btn btn-primary"><i class="fa-solid fa-play"></i> Start Camera</button>
+                <button id="stop-btn" class="btn btn-danger" disabled><i class="fa-solid fa-stop"></i> Stop Camera</button>
+                <button id="reset-btn" class="btn btn-secondary"><i class="fa-solid fa-arrows-rotate"></i> Reset Buffer</button>
+            </div>
+        </section>
+
+        <!-- Column 2: AI Predictions & Explainable Cues -->
+        <div class="col-right">
+            <!-- Prediction Card -->
+            <section class="card prediction-card">
+                <div class="card-header">
+                    <h2><i class="fa-solid fa-brain"></i> AI Inference Engine</h2>
+                </div>
+                <div class="prediction-display">
+                    <div class="label-heading">Recognized Gloss / Sign</div>
+                    <div class="predicted-sign" id="pred-sign">--</div>
+                    <div class="confidence-section">
+                        <div class="confidence-label">
+                            <span>Confidence Score</span>
+                            <span id="pred-conf">0%</span>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" id="conf-progress"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Non-Manual Cues Panel -->
+            <section class="card cues-card">
+                <div class="card-header">
+                    <h2><i class="fa-solid fa-chart-simple"></i> Non-Manual Analysis Panel</h2>
+                </div>
+                <div class="cues-grid">
+                    <div class="cue-item">
+                        <div class="cue-name"><i class="fa-solid fa-lines-leaning"></i> Left Eyebrow</div>
+                        <div class="cue-val badge-neutral" id="cue-eb-l">NORMAL</div>
+                    </div>
+                    <div class="cue-item">
+                        <div class="cue-name"><i class="fa-solid fa-lines-leaning"></i> Right Eyebrow</div>
+                        <div class="cue-val badge-neutral" id="cue-eb-r">NORMAL</div>
+                    </div>
+                    <div class="cue-item">
+                        <div class="cue-name"><i class="fa-solid fa-eye"></i> Eye Openness</div>
+                        <div class="cue-val badge-neutral" id="cue-eyes">OPEN</div>
+                    </div>
+                    <div class="cue-item">
+                        <div class="cue-name"><i class="fa-solid fa-lips"></i> Mouth State</div>
+                        <div class="cue-val badge-neutral" id="cue-mouth">CLOSED</div>
+                    </div>
+                    <div class="cue-item full-width">
+                        <div class="cue-name"><i class="fa-solid fa-arrows-up-down-left-right"></i> Head Orientation</div>
+                        <div class="cue-val badge-neutral" id="cue-head">CENTER</div>
+                    </div>
+                </div>
+                <!-- Mini Diagnostics -->
+                <div class="diagnostics-log" id="diagnostics-log">
+                    <div class="log-title">Diagnostics Terminal</div>
+                    <div class="log-content" id="log-content">
+                        [System] Ready. Press Start Camera to begin translation.
+                    </div>
+                </div>
+            </section>
+
+            <section class="card assistant-card">
+                <div class="card-header">
+                    <h2><i class="fa-solid fa-robot"></i> GESCOM AI Assistant</h2>
+                    <button id="assistant-explain-btn" class="btn btn-secondary">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> Explain This Prediction
+                    </button>
+                </div>
+                <div class="assistant-mode-row">
+                    <button class="btn btn-secondary assistant-mode-btn active" data-mode="translate">Translate</button>
+                    <button class="btn btn-secondary assistant-mode-btn" data-mode="explain">Explain</button>
+                    <button class="btn btn-secondary assistant-mode-btn" data-mode="conversation">Conversation</button>
+                    <button class="btn btn-secondary assistant-mode-btn" data-mode="speak">Speak</button>
+                </div>
+                <div class="assistant-response" id="assistant-response">
+                    I'm waiting for an ISL sign. Start the camera and perform a sign.
+                </div>
+                <div class="assistant-meta">
+                    <div class="assistant-confidence">
+                        <span>Confidence</span>
+                        <strong id="assistant-confidence">0%</strong>
+                    </div>
+                    <div class="assistant-alternatives">
+                        <span>Top alternatives</span>
+                        <div id="assistant-alternatives">No alternatives yet.</div>
+                    </div>
+                </div>
+                <div class="assistant-cues">
+                    <div class="assistant-cues-title">Non-Manual Cues</div>
+                    <div id="assistant-cues-list" class="assistant-cues-list">
+                        Eyebrows: normal / normal | Eyes: open | Mouth: closed | Head: center
+                    </div>
+                </div>
+                <div class="assistant-chat-row">
+                    <input id="assistant-input" type="text" placeholder="Ask GESCOM anything..." aria-label="Ask GESCOM anything">
+                    <button id="assistant-send-btn" class="btn btn-primary">
+                        <i class="fa-solid fa-paper-plane"></i> Send
+                    </button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Sentence Output Section -->
+    <footer class="text-output-section card">
+        <div class="output-header">
+            <h2><i class="fa-solid fa-comment-dots"></i> Translation Text Output</h2>
+            <div class="speak-toggle">
+                <label class="switch">
+                    <input type="checkbox" id="tts-auto-checkbox" checked>
+                    <span class="slider round"></span>
+                </label>
+                <span class="switch-label">Auto Text-to-Speech (TTS)</span>
+            </div>
+        </div>
+        <div class="output-text-area" id="output-text">
+            Waiting for recognized signs...
+        </div>
+        <div class="output-controls">
+            <button id="clear-btn" class="btn btn-secondary"><i class="fa-solid fa-trash-can"></i> Clear Text</button>
+            <button id="speak-btn" class="btn btn-primary"><i class="fa-solid fa-volume-high"></i> Speak Text</button>
+            <button id="save-btn" class="btn btn-success"><i class="fa-solid fa-download"></i> Save Text</button>
+        </div>
+    </footer>
+
+    <!-- Privacy Notice -->
+    <div class="privacy-disclaimer">
+        <p><i class="fa-solid fa-shield-halved"></i> <strong>Privacy Notice:</strong> All webcam video processing is computed locally on the server. Camera frames are streamed temporarily for real-time feature extraction and are not saved permanently on disk.</p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
