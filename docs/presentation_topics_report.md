@@ -500,3 +500,117 @@ If someone asks, “What is your project about?” you can answer:
 > This project is an Indian Sign Language recognition system that uses webcam-based live input and MediaPipe landmark extraction to analyze facial, hand, and upper-body movements. The extracted features are fed into a BiLSTM with attention model, which learns the temporal pattern of the sign and predicts the correct sentence label. The system outputs text and can also convert it into speech, making it useful for accessibility and communication support.
 
 This is the cleanest and most complete explanation to remember.
+
+---
+
+## 28. Topics You Must Learn for This Project
+
+These are the exact topics you should study before giving the presentation or viva.
+
+### 28.1 Computer Vision
+- image and video processing
+- frames from video
+- feature extraction from images
+- landmark detection
+- pose and face tracking
+
+### 28.2 Indian Sign Language (ISL)
+- meaning of sign language
+- manual vs non-manual features
+- difference between static and dynamic gestures
+- sentence-level sign recognition
+
+### 28.3 MediaPipe
+- face landmarks
+- hand landmarks
+- pose landmarks
+- landmark-based representation
+- why MediaPipe is useful in real-time applications
+
+### 28.4 Feature Engineering
+- feature vector creation
+- normalized body coordinates
+- face, hand, and pose features
+- sequence-based feature representation
+- why normalization is important
+
+### 28.5 Temporal Sequence Learning
+- time-series data in sign language
+- sequence length
+- relation between successive frames
+- understanding motion over time
+
+### 28.6 LSTM and BiLSTM
+- what is RNN
+- what is LSTM
+- why BiLSTM is better for sequential gesture data
+- learning past and future context
+
+### 28.7 Attention Mechanism
+- why some frames matter more than others
+- attention in sequence classification
+- importance of focus on relevant sign frames
+
+### 28.8 Deep Learning Basics
+- neural network structure
+- optimizer
+- loss function
+- training loop
+- validation and testing
+
+### 28.9 Classification Concepts
+- multiclass classification
+- labels and class mapping
+- confusion between similar signs
+- model output interpretation
+
+### 28.10 Evaluation Metrics
+- accuracy
+- top-3 accuracy
+- macro F1-score
+- confusion matrix
+- model comparison
+
+### 28.11 Real-Time Inference
+- webcam streaming
+- frame capture
+- buffering 30 frames
+- live prediction
+- flicker reduction through smoothing
+
+### 28.12 Flask and Web App Integration
+- backend server
+- API endpoints
+- sending input from frontend to backend
+- receiving outputs and displaying results
+
+### 28.13 Frontend Basics
+- webcam access using JavaScript
+- capturing camera frames
+- handling live UI updates
+- displaying prediction text
+
+### 28.14 Text-to-Speech (TTS)
+- why TTS is useful
+- converting recognized text into speech
+- accessibility use case
+
+### 28.15 Data Preprocessing and Cleaning
+- frame extraction
+- data normalization
+- removing poor-quality samples
+- preparing data for training
+
+### 28.16 Model Comparison and Benchmarking
+- BiLSTM vs XGBoost
+- why benchmarking is important
+- choosing the better model
+
+### 28.17 Challenges and Limitations
+- small dataset
+- lighting changes
+- signer variation
+- similar-looking signs
+- real-world robustness
+
+These are the most essential topics to learn, understand, and explain in your project presentation.
