@@ -113,26 +113,14 @@ The webcam preview is mirrored for the user, but the frame sent to inference kee
 
 ## 7. Beginner Setup and Training Steps
 
-### Step 1: Open the project
 
-```powershell
-cd E:\anuj\ISL_NonManual_AI
-```
-
-Place the dataset beside the project:
-
-```text
-E:\anuj\ISL_CSLRT_Corpus
-E:\anuj\ISL_NonManual_AI
-```
-
-### Step 2: Install dependencies
+### Step 1: Install dependencies
 
 ```powershell
 python -m pip install -r requirements.txt
 ```
 
-### Step 3: Inspect the dataset
+### Step 2: Inspect the dataset
 
 ```powershell
 python ml/dataset_inspection.py
@@ -140,7 +128,7 @@ python ml/dataset_inspection.py
 
 Confirm that the metadata contains the expected samples and classes.
 
-### Step 4: Extract features
+### Step 3: Extract features
 
 ```powershell
 python ml/preprocessing.py
@@ -148,7 +136,7 @@ python ml/preprocessing.py
 
 Confirm that `data/features/` contains one `.npy` file for each valid labeled sample.
 
-### Step 5: Train the main model
+### Step 4: Train the main model
 
 ```powershell
 python ml/train.py --model temporal --split full --epochs 35
@@ -163,7 +151,7 @@ models/history_temporal.json
 models/labels.json
 ```
 
-### Step 6: Evaluate the model
+### Step 5: Evaluate the model
 
 ```powershell
 python ml/evaluate.py --model temporal --split full
@@ -175,7 +163,7 @@ The metrics are written to:
 models/evaluation_temporal.json
 ```
 
-### Step 7: Start the webcam app
+### Step 6: Start the webcam app
 
 ```powershell
 python app.py
@@ -183,7 +171,7 @@ python app.py
 
 Open `http://127.0.0.1:5000`, allow camera access, click **Start Camera**, and keep the face and hands visible.
 
-### Step 8: Optional XGBoost comparison
+### Step 7: Optional XGBoost comparison
 
 ```powershell
 python ml/xgboost_model.py --split full --estimators 50
